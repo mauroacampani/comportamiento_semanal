@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Mi cuadro de comportamiento semanal: una herramienta amigable para aprender y mejorar cada día.">
+  <meta name="theme-color" content="#0B6E4F">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Mi semana">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>🌈 Mi cuadro de comportamiento</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <p class="brand">🌈 Mi cuadro de comportamiento 🌈</p>
+      <p class="tagline">😊 ¡Cada día puedo aprender y mejorar! 💪</p>
+      <form class="datos" id="form-datos" aria-label="Datos de la semana" autocomplete="off">
+        <div class="campo">
+          <label for="input-nombre">Nombre</label>
+          <input type="text" id="input-nombre" name="nombre" placeholder="Escribe tu nombre" maxlength="60" autocomplete="off">
+        </div>
+        <div class="campo">
+          <label for="input-semana">Semana</label>
+          <input type="text" id="input-semana" name="semana" placeholder="Ej.: 12 al 18 de mayo" maxlength="60" autocomplete="off">
+        </div>
+        <p class="guardado" id="guardado" role="status" aria-live="polite">✓ Guardado automático</p>
+      </form>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Secciones de la aplicación">
+    <button type="button" class="tab is-active" id="tab-hoy" data-vista="hoy" aria-current="page">
+      <span aria-hidden="true">📅</span> Hoy
+    </button>
+    <button type="button" class="tab" id="tab-semana" data-vista="semana">
+      <span aria-hidden="true">🗓️</span> Semana
+    </button>
+    <button type="button" class="tab" id="tab-resumen" data-vista="resumen">
+      <span aria-hidden="true">🏆</span> Resumen
+    </button>
+  </nav>
+
+  <main id="contenido" class="contenido" tabindex="-1">
+
+    <!-- ============ VISTA: HOY (flujo guiado) ============ -->
+    <section id="view-hoy" aria-labelledby="titulo-hoy">
+      <h2 id="titulo-hoy">¿Cómo estuve hoy?</h2>
+
+      <fieldset class="dia-selector">
+        <legend>1. Elige el día <span class="hint">Toca un día para registrarlo</span></legend>
+        <div class="dias" id="dias" role="radiogroup" aria-label="Día de la semana"></div>
+      </fieldset>
+
+      <div class="progreso" aria-hidden="false">
+        <p class="progreso-texto" id="progreso-texto">Paso 1 de 9</p>
+        <div class="progreso-barra" role="progressbar" id="progreso-barra"
+             aria-label="Progreso del día" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progreso-relleno" id="progreso-relleno"></div>
+        </div>
+        <p class="progreso-dia" id="progreso-dia"></p>
+      </div>
+
+      <p class="sr-status" id="anuncio" role="status" aria-live="polite"></p>
+
+      <article class="tarjeta paso" id="paso-tarjeta" aria-live="off">
+        <div id="paso-contenido"></div>
+        <div class="paso-nav">
+          <button type="button" class="btn btn-sec" id="btn-atras">← Atrás</button>
+          <div class="puntos" id="puntos" aria-hidden="true"></div>
+          <button type="button" class="btn btn-prim" id="btn-siguiente">Siguiente →</button>
+        </div>
+      </article>
+
+      <aside class="recuerdo" aria-label="Recuerdo importante">
+        <p><strong>❤️ Recuerdo</strong></p>
+        <p>Enojarse está bien.<br>Lastimar, insultar o pegar no.<br>Puedo aprender a calmarme. 🌈</p>
+      </aside>
+    </section>
+
+    <!-- ============ VISTA: SEMANA ============ -->
+    <section id="view-semana" aria-labelledby="titulo-semana" hidden>
+      <h2 id="titulo-semana">Mi semana</h2>
+      <p class="intro">Toca un día para completarlo o cambiarlo. 🌈</p>
+      <div class="semana-grid" id="semana-grid"></div>
+    </section>
+
+    <!-- ============ VISTA: RESUMEN ============ -->
+    <section id="view-resumen" aria-labelledby="titulo-resumen" hidden>
+      <h2 id="titulo-resumen">Resumen semanal</h2>
+      <p class="intro" id="resumen-sub">Aquí se ve toda tu semana. Puedes mostrársela a un adulto. 😊</p>
+      <div class="resumen-acciones">
+        <button type="button" class="btn btn-prim" id="btn-imprimir">🖨️ Imprimir resumen</button>
+        <button type="button" class="btn btn-sec" id="btn-nueva">✨ Nueva semana</button>
+      </div>
+      <div id="resumen-contenido"></div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>🌈 Cada día puedo aprender y mejorar. Estoy aprendiendo y puedo mejorar.</p>
+    <p><small> Design by Mauro Campani. </small></p>
+  </footer>
+
+  <dialog class="dialogo" id="dialogo-nueva" aria-labelledby="dialogo-titulo">
+    <h2 id="dialogo-titulo">¿Empezar una nueva semana?</h2>
+    <p>Se borrarán las caritas, estrategias y logros de esta semana. Tu nombre se conserva.</p>
+    <p><strong>Esta acción no se puede deshacer.</strong></p>
+    <div class="dialogo-botones">
+      <button type="button" class="btn btn-sec" id="btn-cancelar" value="cancel">Volver</button>
+      <button type="button" class="btn btn-peligro" id="btn-confirmar-nueva">Sí, empezar de nuevo</button>
+    </div>
+  </dialog>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
