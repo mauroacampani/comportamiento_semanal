@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hoja semanal por pasos para completar a mano: un día por hoja, como en la app.">
+  <title>📝 Mi semana por pasos — para hacer a mano</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; color: #000; background: #fff;
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+      line-height: 1.4;
+    }
+    .hoja { max-width: 900px; margin: 0 auto; padding: 16px; }
+    h1 { font-size: 1.4rem; margin: 0.2rem 0; text-align: center; }
+    .lema { text-align: center; font-weight: 800; margin: 0 0 0.8rem; }
+    h2.dia { font-size: 1.25rem; margin: 0 0 0.5rem; }
+    h3 { font-size: 1.05rem; margin: 0.7rem 0 0.3rem; }
+    .datos p { margin: 0.35rem 0; font-weight: 700; }
+    .relleno {
+      display: inline-block; min-width: 16rem;
+      border-bottom: 1.5px solid #000; font-weight: 400; padding: 0 0.3rem;
+    }
+    .leyenda p { margin: 0.25rem 0; }
+    /* Pasos apilados */
+    ol.pasos { list-style: none; margin: 0; padding: 0; }
+    li.paso {
+      border: 1.5px solid #000; border-radius: 10px;
+      padding: 5px 9px; margin: 0 0 6px;
+    }
+    li.paso .marcas { display: block; margin-top: 2px; }
+    li.paso .nohubo { display: inline-block; margin-left: 0.6rem; white-space: nowrap; }
+    li.no-aplica { background: #f2f2f2; }
+    /* Mini secciones */
+    .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.15rem 0.8rem; }
+    .cols2 span { display: block; margin: 0.2rem 0; }
+    .linea { border-bottom: 1.5px solid #000; height: 10mm; }
+    .recuerdo { border: 2px solid #000; border-radius: 12px; padding: 0.6rem 0.8rem; margin-top: 0.9rem; }
+    .recuerdo p { margin: 0.25rem 0; font-weight: 800; }
+    .firma { margin-top: 0.7rem; font-weight: 700; }
+    .firma .relleno { min-width: 14rem; }
+    .dia-hoja { break-inside: avoid; }
+    .salto { break-before: page; }
+    /* Barra solo en pantalla */
+    .barra {
+      position: sticky; top: 0; z-index: 10;
+      background: #0B6E4F; color: #fff;
+      padding: 0.7rem 1rem;
+      display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; justify-content: center;
+    }
+    .barra p { margin: 0; font-weight: 700; }
+    .btn-imprimir {
+      font: inherit; font-weight: 800; font-size: 1.1rem;
+      min-height: 52px; padding: 0.6rem 1.4rem;
+      border-radius: 14px; border: 3px solid #084E38;
+      background: #fff; color: #084E38; cursor: pointer;
+    }
+    @page { size: A4; margin: 11mm; }
+    @media print {
+      .solo-pantalla { display: none !important; }
+      body { font-size: 10.5pt; }
+      .hoja { max-width: none; padding: 0; }
+      h1 { font-size: 16pt; }
+      h2.dia { font-size: 14pt; }
+      li.no-aplica { background: #f2f2f2 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="barra solo-pantalla" role="region" aria-label="Acciones">
+    <p>📝 Una hoja por día (7 páginas). Complétala a mano, paso a paso.</p>
+    <button type="button" class="btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
+  </div>
+
+  <main class="hoja">
+    <!-- ===== Portada ===== -->
+    <h1>🌈 MI CUADRO DE COMPORTAMIENTO 🌈</h1>
+    <p class="lema">😊 ¡CADA DÍA PUEDO APRENDER Y MEJORAR! 💪</p>
+    <div class="datos">
+      <p>Nombre: <span class="relleno" id="t-nombre"></span></p>
+      <p>Semana: <span class="relleno" id="t-semana"></span></p>
+    </div>
+    <section class="leyenda" aria-label="Significado de las caritas">
+      <h3>🎭 MIS CARITAS (valen para toda la semana)</h3>
+      <p>😊 <strong>MUY BIEN:</strong> Estuve tranquilo y respeté las reglas.</p>
+      <p>🙂 <strong>BIEN:</strong> Me costó un poquito, pero pude hacerlo bien.</p>
+      <p>😐 <strong>A MEJORAR:</strong> Tuve alguna dificultad y necesito intentarlo nuevamente.</p>
+      <p>😟 <strong>ME COSTÓ:</strong> Me sentí mal o tuve una conducta que debo mejorar.</p>
+      <p>😡 <strong>ME ENOJÉ:</strong> Sentí mucho enojo y me costó controlar mi reacción.</p>
+      <p>Rodea o tacha el ○ de la carita que corresponda en cada paso.</p>
+    </section>
+
+    <!-- ===== LUNES ===== -->
+    <section class="dia-hoja salto" aria-label="Hoja del lunes">
+      <h2 class="dia">🌞 LUNES</h2>
+      <ol class="pasos">
+        <li class="paso"><strong>Paso 1 🏫 Escuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 2 👩‍🏫 Docente:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 3 🧒 Compañeros:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 4 👩 Mamá:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 5 👵 Abuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 6 ⚽ Fútbol:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 7 🚶 Paseos:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+      </ol>
+      <h3>🧘 Cuando me enojo… ¿Pude calmarme?</h3>
+      <div class="cols2">
+        <span>☐ 😊 Sí, pude hacerlo solo.</span>
+        <span>☐ 🙂 Sí, con ayuda de un adulto.</span>
+        <span>☐ 😐 Me costó, pero lo intenté.</span>
+        <span>☐ 😡 No pude calmarme.</span>
+      </div>
+      <h3>¿Qué hice para tranquilizarme?</h3>
+      <div class="cols2">
+        <span>☐ 🫁 Respiré profundo</span>
+        <span>☐ 🧘 Me quedé tranquilo un momento</span>
+        <span>☐ 🗣️ Hablé con un adulto</span>
+        <span>☐ 🚶 Me alejé un poquito</span>
+        <span>☐ 🤝 Pedí ayuda</span>
+        <span>☐ ✏️ Otra: ____________</span>
+      </div>
+      <h3>🏆 Mi logro de hoy</h3>
+      <p><strong>Hoy me sentí orgulloso/a porque:</strong></p><div class="linea"></div>
+      <p><strong>Mañana voy a intentar:</strong></p><div class="linea"></div>
+    </section>
+
+    <!-- ===== MARTES ===== -->
+    <section class="dia-hoja salto" aria-label="Hoja del martes">
+      <h2 class="dia">🌈 MARTES</h2>
+      <ol class="pasos">
+        <li class="paso"><strong>Paso 1 🏫 Escuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 2 👩‍🏫 Docente:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 3 🧒 Compañeros:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 4 👩 Mamá:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 5 👵 Abuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 6 ⚽ Fútbol:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 7 🚶 Paseos:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+      </ol>
+      <h3>🧘 Cuando me enojo… ¿Pude calmarme?</h3>
+      <div class="cols2">
+        <span>☐ 😊 Sí, pude hacerlo solo.</span>
+        <span>☐ 🙂 Sí, con ayuda de un adulto.</span>
+        <span>☐ 😐 Me costó, pero lo intenté.</span>
+        <span>☐ 😡 No pude calmarme.</span>
+      </div>
+      <h3>¿Qué hice para tranquilizarme?</h3>
+      <div class="cols2">
+        <span>☐ 🫁 Respiré profundo</span>
+        <span>☐ 🧘 Me quedé tranquilo un momento</span>
+        <span>☐ 🗣️ Hablé con un adulto</span>
+        <span>☐ 🚶 Me alejé un poquito</span>
+        <span>☐ 🤝 Pedí ayuda</span>
+        <span>☐ ✏️ Otra: ____________</span>
+      </div>
+      <h3>🏆 Mi logro de hoy</h3>
+      <p><strong>Hoy me sentí orgulloso/a porque:</strong></p><div class="linea"></div>
+      <p><strong>Mañana voy a intentar:</strong></p><div class="linea"></div>
+    </section>
+
+    <!-- ===== MIÉRCOLES ===== -->
+    <section class="dia-hoja salto" aria-label="Hoja del miércoles">
+      <h2 class="dia">⭐ MIÉRCOLES</h2>
+      <ol class="pasos">
+        <li class="paso"><strong>Paso 1 🏫 Escuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 2 👩‍🏫 Docente:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 3 🧒 Compañeros:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 4 👩 Mamá:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 5 👵 Abuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 6 ⚽ Fútbol:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 7 🚶 Paseos:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+      </ol>
+      <h3>🧘 Cuando me enojo… ¿Pude calmarme?</h3>
+      <div class="cols2">
+        <span>☐ 😊 Sí, pude hacerlo solo.</span>
+        <span>☐ 🙂 Sí, con ayuda de un adulto.</span>
+        <span>☐ 😐 Me costó, pero lo intenté.</span>
+        <span>☐ 😡 No pude calmarme.</span>
+      </div>
+      <h3>¿Qué hice para tranquilizarme?</h3>
+      <div class="cols2">
+        <span>☐ 🫁 Respiré profundo</span>
+        <span>☐ 🧘 Me quedé tranquilo un momento</span>
+        <span>☐ 🗣️ Hablé con un adulto</span>
+        <span>☐ 🚶 Me alejé un poquito</span>
+        <span>☐ 🤝 Pedí ayuda</span>
+        <span>☐ ✏️ Otra: ____________</span>
+      </div>
+      <h3>🏆 Mi logro de hoy</h3>
+      <p><strong>Hoy me sentí orgulloso/a porque:</strong></p><div class="linea"></div>
+      <p><strong>Mañana voy a intentar:</strong></p><div class="linea"></div>
+    </section>
+
+    <!-- ===== JUEVES ===== -->
+    <section class="dia-hoja salto" aria-label="Hoja del jueves">
+      <h2 class="dia">🌻 JUEVES</h2>
+      <ol class="pasos">
+        <li class="paso"><strong>Paso 1 🏫 Escuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 2 👩‍🏫 Docente:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 3 🧒 Compañeros:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 4 👩 Mamá:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 5 👵 Abuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 6 ⚽ Fútbol:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 7 🚶 Paseos:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+      </ol>
+      <h3>🧘 Cuando me enojo… ¿Pude calmarme?</h3>
+      <div class="cols2">
+        <span>☐ 😊 Sí, pude hacerlo solo.</span>
+        <span>☐ 🙂 Sí, con ayuda de un adulto.</span>
+        <span>☐ 😐 Me costó, pero lo intenté.</span>
+        <span>☐ 😡 No pude calmarme.</span>
+      </div>
+      <h3>¿Qué hice para tranquilizarme?</h3>
+      <div class="cols2">
+        <span>☐ 🫁 Respiré profundo</span>
+        <span>☐ 🧘 Me quedé tranquilo un momento</span>
+        <span>☐ 🗣️ Hablé con un adulto</span>
+        <span>☐ 🚶 Me alejé un poquito</span>
+        <span>☐ 🤝 Pedí ayuda</span>
+        <span>☐ ✏️ Otra: ____________</span>
+      </div>
+      <h3>🏆 Mi logro de hoy</h3>
+      <p><strong>Hoy me sentí orgulloso/a porque:</strong></p><div class="linea"></div>
+      <p><strong>Mañana voy a intentar:</strong></p><div class="linea"></div>
+    </section>
+
+    <!-- ===== VIERNES ===== -->
+    <section class="dia-hoja salto" aria-label="Hoja del viernes">
+      <h2 class="dia">🎉 VIERNES</h2>
+      <ol class="pasos">
+        <li class="paso"><strong>Paso 1 🏫 Escuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 2 👩‍🏫 Docente:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 3 🧒 Compañeros:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 4 👩 Mamá:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 5 👵 Abuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 6 ⚽ Fútbol:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 7 🚶 Paseos:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+      </ol>
+      <h3>🧘 Cuando me enojo… ¿Pude calmarme?</h3>
+      <div class="cols2">
+        <span>☐ 😊 Sí, pude hacerlo solo.</span>
+        <span>☐ 🙂 Sí, con ayuda de un adulto.</span>
+        <span>☐ 😐 Me costó, pero lo intenté.</span>
+        <span>☐ 😡 No pude calmarme.</span>
+      </div>
+      <h3>¿Qué hice para tranquilizarme?</h3>
+      <div class="cols2">
+        <span>☐ 🫁 Respiré profundo</span>
+        <span>☐ 🧘 Me quedé tranquilo un momento</span>
+        <span>☐ 🗣️ Hablé con un adulto</span>
+        <span>☐ 🚶 Me alejé un poquito</span>
+        <span>☐ 🤝 Pedí ayuda</span>
+        <span>☐ ✏️ Otra: ____________</span>
+      </div>
+      <h3>🏆 Mi logro de hoy</h3>
+      <p><strong>Hoy me sentí orgulloso/a porque:</strong></p><div class="linea"></div>
+      <p><strong>Mañana voy a intentar:</strong></p><div class="linea"></div>
+    </section>
+
+    <!-- ===== SÁBADO ===== -->
+    <section class="dia-hoja salto" aria-label="Hoja del sábado">
+      <h2 class="dia">❤️ SÁBADO</h2>
+      <ol class="pasos">
+        <li class="paso no-aplica"><strong>Paso 1 🏫 Escuela:</strong> — No hubo (fin de semana)</li>
+        <li class="paso no-aplica"><strong>Paso 2 👩‍🏫 Docente:</strong> — No hubo (fin de semana)</li>
+        <li class="paso"><strong>Paso 3 🧒 Compañeros:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 4 👩 Mamá:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 5 👵 Abuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 6 ⚽ Fútbol:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 7 🚶 Paseos:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+      </ol>
+      <h3>🧘 Cuando me enojo… ¿Pude calmarme?</h3>
+      <div class="cols2">
+        <span>☐ 😊 Sí, pude hacerlo solo.</span>
+        <span>☐ 🙂 Sí, con ayuda de un adulto.</span>
+        <span>☐ 😐 Me costó, pero lo intenté.</span>
+        <span>☐ 😡 No pude calmarme.</span>
+      </div>
+      <h3>¿Qué hice para tranquilizarme?</h3>
+      <div class="cols2">
+        <span>☐ 🫁 Respiré profundo</span>
+        <span>☐ 🧘 Me quedé tranquilo un momento</span>
+        <span>☐ 🗣️ Hablé con un adulto</span>
+        <span>☐ 🚶 Me alejé un poquito</span>
+        <span>☐ 🤝 Pedí ayuda</span>
+        <span>☐ ✏️ Otra: ____________</span>
+      </div>
+      <h3>🏆 Mi logro de hoy</h3>
+      <p><strong>Hoy me sentí orgulloso/a porque:</strong></p><div class="linea"></div>
+      <p><strong>Mañana voy a intentar:</strong></p><div class="linea"></div>
+    </section>
+
+    <!-- ===== DOMINGO ===== -->
+    <section class="dia-hoja salto" aria-label="Hoja del domingo">
+      <h2 class="dia">🌙 DOMINGO</h2>
+      <ol class="pasos">
+        <li class="paso no-aplica"><strong>Paso 1 🏫 Escuela:</strong> — No hubo (fin de semana)</li>
+        <li class="paso no-aplica"><strong>Paso 2 👩‍🏫 Docente:</strong> — No hubo (fin de semana)</li>
+        <li class="paso"><strong>Paso 3 🧒 Compañeros:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 4 👩 Mamá:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 5 👵 Abuela:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 6 ⚽ Fútbol:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+        <li class="paso"><strong>Paso 7 🚶 Paseos:</strong><span class="marcas">○ 😊 Muy bien · ○ 🙂 Bien · ○ 😐 A mejorar · ○ 😟 Me costó · ○ 😡 Me enojé <span class="nohubo">☐ Hoy no hubo</span></span></li>
+      </ol>
+      <h3>🧘 Cuando me enojo… ¿Pude calmarme?</h3>
+      <div class="cols2">
+        <span>☐ 😊 Sí, pude hacerlo solo.</span>
+        <span>☐ 🙂 Sí, con ayuda de un adulto.</span>
+        <span>☐ 😐 Me costó, pero lo intenté.</span>
+        <span>☐ 😡 No pude calmarme.</span>
+      </div>
+      <h3>¿Qué hice para tranquilizarme?</h3>
+      <div class="cols2">
+        <span>☐ 🫁 Respiré profundo</span>
+        <span>☐ 🧘 Me quedé tranquilo un momento</span>
+        <span>☐ 🗣️ Hablé con un adulto</span>
+        <span>☐ 🚶 Me alejé un poquito</span>
+        <span>☐ 🤝 Pedí ayuda</span>
+        <span>☐ ✏️ Otra: ____________</span>
+      </div>
+      <h3>🏆 Mi logro de hoy</h3>
+      <p><strong>Hoy me sentí orgulloso/a porque:</strong></p><div class="linea"></div>
+      <p><strong>Mañana voy a intentar:</strong></p><div class="linea"></div>
+    </section>
+
+    <!-- ===== Cierre ===== -->
+    <section class="recuerdo" aria-label="Recuerdo importante">
+      <p>❤️ RECUERDO</p>
+      <p>ENOJARSE ESTÁ BIEN.<br>LASTIMAR, INSULTAR O PEGAR NO.<br>PUEDO APRENDER A CALMARME. 🌈</p>
+      <p class="firma">Firma: <span class="relleno"></span></p>
+    </section>
+    <p>🌈 Cada día puedo aprender y mejorar.</p>
+  </main>
+
+  <script>
+    // Pre-rellena Nombre y Semana si la app digital se usó en este navegador.
+    (function () {
+      try {
+        var data = JSON.parse(localStorage.getItem("miCuadro.v1") || "null");
+        if (!data) return;
+        if (data.nombre) document.getElementById("t-nombre").textContent = data.nombre;
+        if (data.semana) document.getElementById("t-semana").textContent = data.semana;
+      } catch (e) { /* hoja usable sin JavaScript ni datos */ }
+    })();
+  </script>
+</body>
+</html>

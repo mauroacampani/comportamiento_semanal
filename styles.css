@@ -439,6 +439,7 @@ table.resumen td.aspecto, table.resumen th.aspecto { text-align: left; font-weig
 .firma { margin-top: 1rem; border-top: 2px dashed var(--borde); padding-top: 0.8rem; }
 
 .app-footer { text-align: center; padding: 1.2rem; color: var(--ink-suave); font-weight: 700; }
+.app-footer a { color: var(--prim-osc); font-weight: 800; }
 
 /* ---------- Diálogo ---------- */
 .dialogo { border: 3px solid var(--prim-osc); border-radius: 20px; padding: 1.2rem; max-width: 26rem; }

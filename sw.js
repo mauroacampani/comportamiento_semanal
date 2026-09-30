@@ -3,6 +3,8 @@ var CACHE = "mi-cuadro-v1";
 var ARCHIVOS = [
   "./",
   "index.html",
+  "plantilla.html",
+  "hoja-semana.html",
   "styles.css",
   "app.js",
   "manifest.json",
